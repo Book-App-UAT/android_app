@@ -48,21 +48,6 @@ fun BottomLayout() {
         }
 
 
-//        Button(
-//            onClick = {  },
-//            modifier = Modifier.padding(end = 5.dp)
-//        )
-//        {
-//            Text(text = stringResource(id = R.string.collections), fontSize = 12.sp)
-//        }
-//
-//        Button(
-//            onClick = {  },
-//            modifier = Modifier.padding(start = 5.dp, end = 5.dp)
-//        )
-//        {
-//            Text(text = stringResource(id = R.string.scan_book), fontSize = 12.sp)
-//        }
     }
     
     
