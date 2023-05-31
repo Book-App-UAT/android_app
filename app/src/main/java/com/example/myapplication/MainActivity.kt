@@ -4,36 +4,56 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.myapplication.ui.theme.BookDisplayHome
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
+import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.ui.theme.*
 
 //! App files
-import com.example.myapplication.ui.theme.BottomLayout
-import com.example.myapplication.ui.theme.TitleLayout
+
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HomeScreen()
+
+            val navController = rememberNavController()
+
+            Scaffold(
+                topBar = { TitleLayout() },
+                bottomBar = {
+                    BottomLayout(
+                        items = listOf(
+                            BottomNavItem(
+                                name = "Home",
+                                route = "home",
+                                icon = Icons.Default.Home
+                                         ),
+                            BottomNavItem (
+                                name = "Collections",
+                                route = "lists",
+                                icon = Icons.Default.KeyboardArrowDown
+                                )
+                                      ),
+                    navController = navController,
+                    onItemClick = { navController.navigate(it.route) }
+                    )
+                }
+
+                    )
+            {
+                Navigation(navController = navController)
+            }
+
+
         }
     }
 }
@@ -41,28 +61,27 @@ class MainActivity : ComponentActivity() {
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(){
+fun HomeScreen() {
 
     val scrollState = rememberScrollState()
 
-    Scaffold(
-        topBar = { TitleLayout() },
-        bottomBar = { BottomLayout()}
-
-    )
-    {
         // Body here
-
-        Column(modifier = Modifier.padding(10.dp)
-            .verticalScroll(state = scrollState),
-                verticalArrangement = Arrangement.SpaceEvenly) {
+        Column(
+            modifier = Modifier
+                .padding(10.dp)
+                .verticalScroll(state = scrollState),
+            verticalArrangement = Arrangement.SpaceEvenly
+              ) {
             BookDisplayHome()
             BookDisplayHome()
             BookDisplayHome()
         }
-
     }
 
+@Composable
+fun ListsScreen() {
 
+    BookDisplayHome()
+    BookDisplayHome()
 
 }
