@@ -14,11 +14,17 @@ fun Navigation(navController: NavHostController){
 
     NavHost(navController = navController, startDestination = "home"){
         composable("home"){
-            HomeScreen()
+            HomeScreen(navController)
         }
         composable("lists"){
             ListsScreen()
         }
+
+        composable("book_info"){
+
+
+        }
+
     }
 }
 
