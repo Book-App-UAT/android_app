@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
 
             Scaffold(
-                topBar = { TitleLayout() },
+                topBar = { TitleLayout(navController = navController) },
                 bottomBar = {
                     BottomLayout(
                         items = listOf(

@@ -10,10 +10,24 @@ data class Book(
     val author: String, // Author could be its own data class
     val description: String,
     val n_pages: Int,
-    val isbn : String,
-    val cover_id :Int // From drawables, the painterResource also takes input int
-               ) : Parcelable
+    val isbn: String,
+    val cover_id: Int // From drawables, the painterResource also takes input int
+               ) : Parcelable {
 
+    fun doesMatchSearchQuery(query : String): Boolean{
+        val matchingCombinations = listOf<String>(
+            // TODO Add more variations
+            title
+                                                 )
+
+
+        return matchingCombinations.any{
+            it.contains(query, ignoreCase = true)
+        }
+
+    }
+
+}
 
 val book_data_base = listOf<Book>(
     Book(

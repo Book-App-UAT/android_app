@@ -21,7 +21,11 @@ fun Navigation(navController: NavHostController) {
             ListsScreen()
         }
 
-        composable("book_details") { entry->
+        composable("search"){
+            SearchScreen(navController)
+        }
+
+        composable("book_details") {
 
             val result = navController.previousBackStackEntry?.savedStateHandle?.get<Book>("book")
 

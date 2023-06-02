@@ -8,16 +8,22 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.data.Book
 import com.example.myapplication.data.book_data_base
+import com.example.myapplication.logic.DropdownLists
 
 @Composable
 fun BookInfo(book: Book) {
@@ -29,7 +35,9 @@ fun BookInfo(book: Book) {
         Image(
             painter = painterResource(id = book.cover_id),
             contentDescription = "",
-            modifier = Modifier.height(400.dp)
+            modifier = Modifier
+                .height(250.dp)
+                .padding(top = 5.dp)
              )
 
         Text(text = book.title)
@@ -38,26 +46,39 @@ fun BookInfo(book: Book) {
             Text(text = book.author + " | " + book.n_pages + " pages")
         }
 
-        Divider(modifier = Modifier.size(10.dp))
+        Spacer(modifier = Modifier.size(10.dp))
+
+        DropdownLists()
+
+        Text(
+            text = "Description",
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .align(Alignment.Start)
+                .padding(horizontal = 10.dp)
+            )
+
+        Spacer(modifier = Modifier.size(3.dp))
 
         LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(bottom = 100.dp).shadow(elevation = 1.dp,shape = RoundedCornerShape(3.dp)),
+            modifier = Modifier
+                .padding(bottom = 30.dp)
+                .shadow(elevation = 1.dp, shape = RoundedCornerShape(3.dp)),
             contentPadding = PaddingValues(bottom = 16.dp) // Adjust the bottom padding to leave the desired gap
                   ) {
 
-            item{
-                Text(text = book.description, modifier = Modifier
-                    .padding(horizontal = 15.dp))
+            item {
+                Text(
+                    text = book.description, modifier = Modifier
+                        .padding(horizontal = 15.dp, vertical = 5.dp)
+                    )
             }
 
             item {
-                Spacer(modifier = Modifier.height(15.dp)) // Adjust the height value to create the desired gap
+                Spacer(modifier = Modifier.height(5.dp)) // Adjust the height value to create the desired gap
             }
         }
 
-        Row(modifier = Modifier.height(50.dp)) {
-            Text(text = "OLA")
-        }
     }
 
 }

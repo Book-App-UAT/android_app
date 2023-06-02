@@ -21,9 +21,10 @@ import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.navigation.NavController
 
 @Composable
-fun TitleLayout() {
+fun TitleLayout(navController: NavController) {
     Row(
         modifier = Modifier
             .height(60.dp)
@@ -36,9 +37,10 @@ fun TitleLayout() {
             horizontalArrangement = Arrangement.Start
            ) {
 
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = {
+                navController.popBackStack()}) {
                 Icon(
-                    painter = painterResource(id = R.drawable.baseline_language_24),
+                    imageVector = Icons.Default.ArrowBack,
                     contentDescription = "",
                     modifier = Modifier.size(30.dp)
                     )
@@ -58,7 +60,7 @@ fun TitleLayout() {
             modifier = Modifier.padding(horizontal = 15.dp, vertical = 15.dp),
             horizontalArrangement = Arrangement.End
            ) {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { navController.navigate("search")}) {
                 Icon(
                     imageVector = Icons.Default.Search, contentDescription = "",
                     modifier = Modifier.size(30.dp)
