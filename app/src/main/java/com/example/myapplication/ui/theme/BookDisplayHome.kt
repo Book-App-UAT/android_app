@@ -12,11 +12,12 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication.R
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavController
 import com.example.myapplication.data.Book
 import com.example.myapplication.data.book_data_base
 
 @Composable
-fun BookDisplayHome(book: Book) {
+fun BookDisplayHome(book: Book,navController: NavController) {
 //Book "category"
     Column(
         modifier = Modifier
@@ -27,7 +28,14 @@ fun BookDisplayHome(book: Book) {
         Row(modifier = Modifier
             .background(color = Color(0xFFedd89d))
             .fillMaxWidth()
-            .clickable {}
+            .clickable {
+
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "book",
+                    value = book
+                                                                        )
+                navController.navigate("book_details")
+            }
            ) {
             //Book cover
             Image(
@@ -59,8 +67,3 @@ fun BookDisplayHome(book: Book) {
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun BookDisplayPreview() {
-    BookDisplayHome(book_data_base[1])
-}

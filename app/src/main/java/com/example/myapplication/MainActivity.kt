@@ -86,9 +86,9 @@ fun HomeScreen(navController: NavController) {
             .verticalScroll(state = scrollState),
         verticalArrangement = Arrangement.SpaceEvenly
           ) {
-        BookDisplayHome(book_data_base[0])
-        BookDisplayHome(book_data_base[1])
-        BookDisplayHome(book_data_base[2])
+        BookDisplayHome(book_data_base[1],navController)
+        BookDisplayHome(book_data_base[0],navController)
+        BookDisplayHome(book_data_base[2],navController)
     }
 }
 

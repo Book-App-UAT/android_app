@@ -1,7 +1,10 @@
 package com.example.myapplication.data
 
+import android.os.Parcelable
 import com.example.myapplication.R
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Book(
     val title: String,
     val author: String, // Author could be its own data class
@@ -9,7 +12,7 @@ data class Book(
     val n_pages: Int,
     val isbn : String,
     val cover_id :Int // From drawables, the painterResource also takes input int
-               )
+               ) : Parcelable
 
 
 val book_data_base = listOf<Book>(
