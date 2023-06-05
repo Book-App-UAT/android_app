@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.data.book_data_base
 import com.example.myapplication.data.book_lists
+//import com.example.myapplication.data.fetchBookData
 import com.example.myapplication.ui.theme.*
 
 //! App files
@@ -34,6 +35,7 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
 
             val navController = rememberNavController()

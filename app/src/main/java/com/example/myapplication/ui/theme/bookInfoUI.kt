@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.myapplication.data.Book
 import com.example.myapplication.data.book_data_base
 import com.example.myapplication.logic.DropdownLists
@@ -32,15 +33,25 @@ fun BookInfo(book: Book) {
         modifier = Modifier,
         horizontalAlignment = Alignment.CenterHorizontally
           ) {
-        Image(
-            painter = painterResource(id = book.cover_id),
-            contentDescription = "",
-            modifier = Modifier
-                .height(250.dp)
-                .padding(top = 5.dp)
-             )
+        if (book.cover_url.isBlank()) {
+            Image(
+                painter = painterResource(id = book.cover_id),
+                contentDescription = "",
+                modifier = Modifier
+                    .height(250.dp)
+                    .padding(top = 5.dp)
+                 )
+        } else {
+            AsyncImage(
+                model = book.cover_url,
+                contentDescription = "",
+                modifier = Modifier
+                    .size(250.dp)
+                    .padding(top = 5.dp)
+                      )
+        }
 
-        Text(text = book.title)
+        Text(text = book.title.toString())
 
         Row() {
             Text(text = book.author + " | " + book.n_pages + " pages")
@@ -69,7 +80,7 @@ fun BookInfo(book: Book) {
 
             item {
                 Text(
-                    text = book.description, modifier = Modifier
+                    text = book.description.toString(), modifier = Modifier
                         .padding(horizontal = 15.dp, vertical = 5.dp)
                     )
             }

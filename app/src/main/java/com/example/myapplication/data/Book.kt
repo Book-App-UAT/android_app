@@ -1,17 +1,24 @@
 package com.example.myapplication.data
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.myapplication.R
 import kotlinx.parcelize.Parcelize
-
+@Entity
 @Parcelize
 data class Book(
+
+    @PrimaryKey(autoGenerate = true)
+    val id : Int = 0,
+
     val title: String,
     val author: String, // Author could be its own data class
     val description: String,
     val n_pages: Int,
     val isbn: String,
-    val cover_id: Int // From drawables, the painterResource also takes input int
+    val cover_url : String = "",
+    val cover_id: Int = 0 // From drawables, the painterResource also takes input int
                ) : Parcelable {
 
     fun doesMatchSearchQuery(query : String): Boolean{

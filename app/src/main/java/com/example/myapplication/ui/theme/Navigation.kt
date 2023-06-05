@@ -31,6 +31,7 @@ fun Navigation(navController: NavHostController) {
 
             //! This is a very bad fix to convert from nullable to nonNullable
             val nonNullableResult: Book = result as? Book ?: book_data_base[1]// Provide a fallback Book object if result is null or not of type Book
+            println(nonNullableResult.cover_url)
             BookInfo(book = nonNullableResult)
 
         }

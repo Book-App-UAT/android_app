@@ -13,8 +13,10 @@ import com.example.myapplication.R
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.example.myapplication.data.Book
 import com.example.myapplication.data.book_data_base
+import coil.compose.rememberAsyncImagePainter as rememberAsyncImagePainter
 
 @Composable
 fun BookDisplayHome(book: Book,navController: NavController) {
@@ -24,7 +26,7 @@ fun BookDisplayHome(book: Book,navController: NavController) {
 
           ) {
         // Book info
-        Text(text = "Currently Reading H")
+        Spacer(modifier = Modifier.size(10.dp))
         Row(modifier = Modifier
             .background(color = Color(0xFFedd89d))
             .fillMaxWidth()
@@ -33,15 +35,20 @@ fun BookDisplayHome(book: Book,navController: NavController) {
                 navController.currentBackStackEntry?.savedStateHandle?.set(
                     key = "book",
                     value = book
-                                                                        )
+                                                                          )
                 navController.navigate("book_details")
             }
            ) {
             //Book cover
-            Image(
-                painter = painterResource(book.cover_id), contentDescription = "",
-                modifier = Modifier.size(150.dp)
-                 )
+            if(book.cover_url.isBlank()){
+                Image(
+                    painter = painterResource(book.cover_id), contentDescription = "",
+//                    painter = painterResource(R.drawable.dune_cover), contentDescription = "",
+                    modifier = Modifier.size(150.dp)
+                     )
+            }else{
+                AsyncImage(model = book.cover_url, contentDescription = "", modifier = Modifier.size(150.dp))
+            }
 
             Spacer(modifier = Modifier.width(16.dp))
             // Book details
@@ -58,8 +65,6 @@ fun BookDisplayHome(book: Book,navController: NavController) {
                 Text(text = book.author)
                 Spacer(modifier = Modifier.height(10.dp))
 
-                //List - Should be dropdown list
-                Text("list")
             }
         }
     }
