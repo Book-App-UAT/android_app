@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.data.Book
 import com.example.myapplication.data.book_data_base
 import com.example.myapplication.data.book_lists
 //import com.example.myapplication.data.fetchBookData
@@ -77,7 +78,7 @@ class MainActivity : ComponentActivity() {
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(books2Display : List<Book>, navController: NavController) {
 
     val scrollState = rememberScrollState()
 
@@ -88,14 +89,15 @@ fun HomeScreen(navController: NavController) {
             .verticalScroll(state = scrollState),
         verticalArrangement = Arrangement.SpaceEvenly
           ) {
-        BookDisplayHome(book_data_base[1],navController)
-        BookDisplayHome(book_data_base[0],navController)
-        BookDisplayHome(book_data_base[2],navController)
+
+        books2Display.forEach{
+            BookDisplayHome(book = it , navController = navController)
+        }
     }
 }
 
 @Composable
-fun ListsScreen() {
+fun ListsScreen(navController: NavController) {
 
     Column(horizontalAlignment = CenterHorizontally) {
 
@@ -109,7 +111,7 @@ fun ListsScreen() {
 //                .background(Color.Red)
                     .border(border = BorderStroke(width = 1.dp, Color.LightGray))
                     .height(50.dp)
-                    .clickable { },
+                    .clickable {navController.navigate("particular_list" + "/" + it.name) },
                 verticalAlignment = CenterVertically
                )
             {

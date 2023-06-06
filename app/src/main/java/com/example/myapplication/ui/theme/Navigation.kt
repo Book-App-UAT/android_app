@@ -15,13 +15,28 @@ fun Navigation(navController: NavHostController) {
 
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
-            HomeScreen(navController)
+            HomeScreen(book_data_base, navController)
         }
         composable("lists") {
-            ListsScreen()
+            ListsScreen(navController)
         }
 
-        composable("search"){
+        composable("particular_list" + "/{name_of_list}", arguments = listOf(
+            navArgument("name_of_list") {
+                type = NavType.StringType
+            }
+                                                                            )) {
+            var list_name = it.arguments?.getString("name_of_list")
+
+            println(list_name)
+
+            var filtered_list = book_data_base.filter {db-> db.collection == list_name }
+
+
+            HomeScreen(books2Display = filtered_list, navController = navController)
+        }
+
+        composable("search") {
             SearchScreen(navController)
         }
 
@@ -30,7 +45,8 @@ fun Navigation(navController: NavHostController) {
             val result = navController.previousBackStackEntry?.savedStateHandle?.get<Book>("book")
 
             //! This is a very bad fix to convert from nullable to nonNullable
-            val nonNullableResult: Book = result as? Book ?: book_data_base[1]// Provide a fallback Book object if result is null or not of type Book
+            val nonNullableResult: Book = result as? Book
+                ?: book_data_base[1]// Provide a fallback Book object if result is null or not of type Book
             println(nonNullableResult.cover_url)
             BookInfo(book = nonNullableResult)
 
