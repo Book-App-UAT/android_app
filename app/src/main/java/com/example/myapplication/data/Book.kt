@@ -20,7 +20,7 @@ data class Book(
     val isbn: String,
     val cover_url: String = "",
     val cover_id: Int = 0, // From drawables, the painterResource also takes input int
-    val collection : String = "",
+    var collection : String = "",
 //    val currently_reading: Boolean = false,
 //    val favourites: Boolean = false,
 //    val read: Boolean = false,
@@ -42,7 +42,7 @@ data class Book(
 
 }
 
-val book_data_base = listOf<Book>(
+val book_data_base = mutableListOf<Book>(
     Book(
         title = "The Psychology of Money",
         author = "Morgan Housel",

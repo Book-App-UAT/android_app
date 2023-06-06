@@ -28,7 +28,6 @@ fun Navigation(navController: NavHostController) {
                                                                             )) {
             var list_name = it.arguments?.getString("name_of_list")
 
-            println(list_name)
 
             var filtered_list = book_data_base.filter {db-> db.collection == list_name }
 

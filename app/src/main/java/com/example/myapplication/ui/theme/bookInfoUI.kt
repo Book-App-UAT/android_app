@@ -59,7 +59,7 @@ fun BookInfo(book: Book) {
 
         Spacer(modifier = Modifier.size(10.dp))
 
-        DropdownLists()
+        DropdownLists(book)
 
         Text(
             text = "Description",
