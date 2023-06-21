@@ -5,6 +5,7 @@ import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -14,6 +15,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
@@ -22,8 +24,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.ViewModelFactoryDsl
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import androidx.room.Room
+import com.example.myapplication.data.BookDataBase
+import com.example.myapplication.data.BookViewModel
 import com.example.myapplication.data.book_data_base
 import com.example.myapplication.data.book_lists
 //import com.example.myapplication.data.fetchBookData
@@ -32,12 +40,33 @@ import com.example.myapplication.ui.theme.*
 //! App files
 
 class MainActivity : ComponentActivity() {
+
+    private val db by lazy {
+        Room.databaseBuilder(applicationContext,
+                            BookDataBase::class.java,
+                            "books.db").build()
+
+
+    }
+
+    private val viewModel by viewModels<BookViewModel>(
+        factoryProducer = {
+            object : ViewModelProvider.Factory{
+                 fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                    return  BookViewModel(db.dao) as T
+                }
+            }
+        }
+                                                      )
+
+
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
 
+            val state = viewModel.state.collectAsState()
             val navController = rememberNavController()
 
             Scaffold(
